@@ -1,0 +1,10 @@
+# OSX files
+.DS_Store
+._.DS_Store
+._.TemporaryItems
+.apdisk
+
+# ST2/ST3 files
+*.sublime-projectcompletions
+*.sublime-project
+*.sublime-workspace
