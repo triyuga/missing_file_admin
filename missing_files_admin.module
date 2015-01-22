@@ -1,0 +1,97 @@
+<?php
+/**
+ * @file
+ * Code for the Missing Files Admin feature.
+ */
+
+include_once 'missing_files_admin.features.inc';
+
+// Additional file status flag, complementing ~FILE_STATUS_PERMANENT and FILE_STATUS_PERMANENT
+define('FILE_STATUS_MISSING', 2);
+
+/**
+ * Include additional files.
+ */
+$dirname = dirname(__FILE__);
+$includes = file_scan_directory("{$dirname}/includes", '/.inc$/');
+foreach (module_list() as $module) {
+  if (isset($includes[$file = "{$dirname}/includes/missing_files_admin.{$module}.inc"])) {
+    require_once $file;
+  }
+}
+
+/**
+ * Implements hook_init().
+ */
+function missing_files_admin_init() {
+  // module_load_install('missing_files_admin');
+  // missing_files_admin_db_drop_file_exists_field();
+  // missing_files_admin_db_add_file_exists_field();
+}
+
+/**
+ * Implements hook_menu().
+ */
+function missing_files_admin_menu() {
+  $items = array();
+
+  // Missing Files Admin Config area pages
+  $items['admin/config/media/missing_files_admin'] = array(
+    'title' => 'Missing Files',
+    'description' => 'Index page for Missing Files Admin',
+    'page callback' => 'system_admin_menu_block_page',
+    'access callback' => 'missing_files_admin_access',
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+
+  $items['admin/config/media/missing_files_admin/update_usage'] = array(
+    'title' => 'File Usage Checker',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('missing_files_admin_update_usage_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'missing_files_admin.pages.inc',
+    'type' => MENU_NORMAL_ITEM
+  );
+
+  $items['admin/config/media/missing_files_admin/file_checker'] = array(
+    'title' => 'File Exists Checker',
+    'description' => t('Show missing physical files.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('missing_files_admin_admin_settings'),
+    'access callback' => 'missing_files_admin_access',
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'missing_files_admin.pages.inc',
+  );
+
+  $items['admin/reports/missing_files_admin'] = array(
+    'title' => 'File list',
+    'description' => t('Show missing physical files.'),
+    'page callback' => 'missing_files_admin_overview',
+    //'page callback' => 'missing_files_admin_form_overview',
+    //'page callback' => 'drupal_get_form',
+    //'page arguments' => array('missing_files_admin_overview'),
+    'access callback' => 'missing_files_admin_access',
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'missing_files_admin.pages.inc',
+  );
+
+  return $items;
+}
+
+function missing_files_admin_access() {
+  return user_access('access missing_files_admin') ;
+}
+
+/**
+ * Implements hook_permission().
+ * @return multitype:number
+ */
+function missing_files_admin_permission() {
+  return array(
+    'access missing_files_admin' => array(
+      'title' => t('Access Missing Files Admin'),
+      'description' => t('Allow users to access the Missing Files Admin'),
+    ),
+  );
+}
