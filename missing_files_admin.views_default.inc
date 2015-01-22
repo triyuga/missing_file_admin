@@ -22,7 +22,7 @@ function missing_files_admin_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'Missing Files Admin';
+  $handler->display->display_options['title'] = 'Report';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['access']['perm'] = 'access missing_files_admin';
@@ -175,9 +175,9 @@ function missing_files_admin_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'admin/content/missing_files_admin';
+  $handler->display->display_options['path'] = 'admin/config/system/missing_files_admin/report';
   $handler->display->display_options['menu']['type'] = 'tab';
-  $handler->display->display_options['menu']['title'] = 'Missing Files Admin';
+  $handler->display->display_options['menu']['title'] = 'Report';
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['context'] = 0;
 
@@ -186,13 +186,13 @@ function missing_files_admin_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'views_data_export_csv';
-  $handler->display->display_options['path'] = 'admin/content/missing_files_admin/missing-files-csv';
+  $handler->display->display_options['path'] = 'admin/config/system/missing_files_admin/report/missing-files-csv';
   $handler->display->display_options['displays'] = array(
     'page' => 'page',
     'default' => 0,
   );
   $handler->display->display_options['use_batch'] = 'batch';
-  $handler->display->display_options['return_path'] = 'admin/content/missing_files_admin';
+  $handler->display->display_options['return_path'] = 'admin/config/system/missing_files_admin/report';
   $handler->display->display_options['segment_size'] = '100';
   $export['missing_files_admin'] = $view;
 

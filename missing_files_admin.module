@@ -36,7 +36,7 @@ function missing_files_admin_menu() {
   $items = array();
 
   // Missing Files Admin Config area pages
-  $items['admin/config/media/missing_files_admin'] = array(
+  $items['admin/config/system/missing_files_admin'] = array(
     'title' => 'Missing Files',
     'description' => 'Index page for Missing Files Admin',
     'page callback' => 'system_admin_menu_block_page',
@@ -45,7 +45,7 @@ function missing_files_admin_menu() {
     'file path' => drupal_get_path('module', 'system'),
   );
 
-  $items['admin/config/media/missing_files_admin/update_usage'] = array(
+  $items['admin/config/system/missing_files_admin/update_usage'] = array(
     'title' => 'File Usage Checker',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('missing_files_admin_update_usage_form'),
@@ -54,23 +54,11 @@ function missing_files_admin_menu() {
     'type' => MENU_NORMAL_ITEM
   );
 
-  $items['admin/config/media/missing_files_admin/file_checker'] = array(
+  $items['admin/config/system/missing_files_admin/file_checker'] = array(
     'title' => 'File Exists Checker',
     'description' => t('Show missing physical files.'),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('missing_files_admin_admin_settings'),
-    'access callback' => 'missing_files_admin_access',
-    'type' => MENU_NORMAL_ITEM,
-    'file' => 'missing_files_admin.pages.inc',
-  );
-
-  $items['admin/reports/missing_files_admin'] = array(
-    'title' => 'File list',
-    'description' => t('Show missing physical files.'),
-    'page callback' => 'missing_files_admin_overview',
-    //'page callback' => 'missing_files_admin_form_overview',
-    //'page callback' => 'drupal_get_form',
-    //'page arguments' => array('missing_files_admin_overview'),
     'access callback' => 'missing_files_admin_access',
     'type' => MENU_NORMAL_ITEM,
     'file' => 'missing_files_admin.pages.inc',
